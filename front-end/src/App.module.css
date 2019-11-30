@@ -1,0 +1,30 @@
+.clickedForm {
+    color:red;
+    opacity: 1;
+}
+.defaultForm {
+    color:black;
+    opacity: 0.3;
+}
+
+.cardDefault {
+    max-width: 345px;
+    margin:0 37%;
+    opacity: 0.3;
+    position: fixed;
+    top: 70px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #f1f1f1;
+    padding: 20px;
+}
+.media {
+    height: 140px;
+}
+
+.backVideo{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+}
