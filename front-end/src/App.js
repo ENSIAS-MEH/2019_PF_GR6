@@ -38,7 +38,7 @@ class App extends React.Component {
     })
   }
   signIn=()=>{
-    if((this.loginRef.current==this.state.login) && (this.passwordRef.current==this.state.password)){
+    if((this.loginRef.current.childNodes[1].firstChild.value===this.state.login) && (this.passwordRef.current.childNodes[1].firstChild.value===this.state.password)){
       console.log("Accepted mate");
     }else{
       console.log("Nope, one of those is incorrect");
