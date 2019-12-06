@@ -2,9 +2,12 @@ import React, { createRef } from 'react';
 import './App.css';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 import styles from './App.module.css'; 
 import earth from "./Beautiful_mother_earth.mp4";
+//import {Redirect} from "react-router-dom";
+import UserHome from "./components/UserHome"
 /**
  * 
  * 
@@ -19,7 +22,8 @@ class App extends React.Component {
     super(props);
     this.state={
       login:"grego",
-      password:"098"
+      password:"098",
+      logged:false,
     };
     this.loginRef=createRef();
     this.passwordRef=createRef();
@@ -41,44 +45,58 @@ class App extends React.Component {
       });
     })
     .catch(function(error){
-      console.log(error+"gregooooz")
+      console.log(error);
     })
   }
   signIn=()=>{
     if((this.loginRef.current.childNodes[1].firstChild.value===this.state.login) && (this.passwordRef.current.childNodes[1].firstChild.value===this.state.password)){
       console.log("Accepted mate");
+      localStorage.setItem("loggedUser",JSON.stringify({
+        "name":this.loginRef.current.childNodes[1].firstChild.value,
+        "password":this.passwordRef.current.childNodes[1].firstChild.value
+      }));
+      this.setState({
+        logged:true
+      });
     }else{
       console.log("Nope, one of those is incorrect");
-      console.log(this.passwordRef.current.childNodes[1].firstChild.value);
-      console.log(this.state.login)
     }
   }
   render(){
-    return(
-      <div className="App" style={{textAlign:"center",margin:50}}>
-        <h3>Welcome to <span style={{color:"green"}}>Clean Evn, Easy Cash</span> App</h3><br/>
-        <video autoPlay loop muted className={styles.backVideo}>
-          <source src={earth} type="video/mp4" />
-          Your browser does not support HTML5 video.
-        </video>
-        <Card className={styles.cardDefault} onMouseOver={this.moveOn} onMouseLeave={this.moveOut}>
-        <br/>
-          <form noValidate autoComplete="off" onSubmit={this.submitForm} >
-              <span>
-                <TextField id="standard-basic" variant="outlined" label="Name" ref={this.loginRef} />
-              </span><br/><br/>
-              <span style={{marginTop:40}}>
-                <TextField id="standard-basic" variant="outlined" label="Password" ref={this.passwordRef} />
-              </span><br/><br/>
-              <Button variant="contained" color="primary" onClick={this.signIn}>
-                Sign-In
-              </Button>
-          </form>
+    if(1==2 ){
+     return <CircularProgress />
+    }
+    else if(this.state.logged || localStorage.getItem("loggedUser")!=null){
+      return <UserHome />
+    }
+    else{
+      return(
+        <div className="App" style={{textAlign:"center",margin:50}}>
+          <h3>Welcome to <span style={{color:"green"}}>Clean Evn, Easy Cash</span> App</h3><br/>
+          <video autoPlay loop muted className={styles.backVideo}>
+            <source src={earth} type="video/mp4" />
+            Your browser does not support HTML5 video.
+          </video>
+          <Card className={styles.cardDefault} onMouseOver={this.moveOn} onMouseLeave={this.moveOut}>
           <br/>
-        </Card>
-        <SpringCard />
-      </div>
-    )
+            <form noValidate autoComplete="off" onSubmit={this.submitForm} >
+                <span>
+                  <TextField id="standard-basic" variant="outlined" label="Name" ref={this.loginRef} />
+                </span><br/><br/>
+                <span style={{marginTop:40}}>
+                  <TextField id="standard-basic" variant="outlined" label="Password" ref={this.passwordRef} />
+                </span><br/><br/>
+                <Button variant="contained" color="primary" onClick={this.signIn}>
+                  Sign-In
+                </Button>
+            </form>
+            <br/>
+          </Card>
+          <SpringCard />
+        </div>
+      )
+    }
+    
   }
 }
 const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 5) / 20, 1.1]
@@ -88,7 +106,7 @@ function SpringCard(){
   const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 5, tension: 350, friction: 40 } }))
   return (
     <animated.div
-      class="springCard"
+      className="springCard"
       onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
       onMouseLeave={() => set({ xys: [0, 0, 1] })}
       style={{ transform: props.xys.interpolate(trans) }}
