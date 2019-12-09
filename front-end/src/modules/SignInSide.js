@@ -67,7 +67,8 @@ const submitIt=(e)=>{
         * 4 : "Forget password" & "Don't have an account? Sign Up" zone
         * 5 : "Copyright .." zone
      */
-    console.log(e.target.childNodes)
+    console.log("Login : "+e.target.childNodes[0].lastChild.childNodes[0].value);
+    console.log("Password : "+e.target.childNodes[1].lastChild.childNodes[0].value)
 }
 export default function SignInSide() {
   const classes = useStyles();
