@@ -29,3 +29,35 @@
     min-width: 100%; 
     min-height: 100%;
 }
+/*
+//////////// for the "SignInSide component /////
+*/
+.image {
+    background-image: 'url(https://source.unsplash.com/random)';
+    background-repeat: 'no-repeat';
+    /*backgroundColor:
+      theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50],
+    */
+    background-size: 'cover';
+    background-position: 'center';
+}
+.root {
+    height: 100vh;
+}
+.paper {
+    margin: 8 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.avatar{
+    margin: 1;
+    /*background-color: theme.palette.secondary.main*/
+}
+.form {
+    width: 100%;
+    margin-top: 1;
+}
+.submit {
+    margin: 3 0 2;
+}

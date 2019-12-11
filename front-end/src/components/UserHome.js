@@ -8,6 +8,7 @@ class UserHome extends Component {
     render(){
         return(
             <div>
+                On construction ... <br/>
                 <ul>
                     <li>
                         <button onClick={this.signOut}>

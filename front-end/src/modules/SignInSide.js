@@ -12,6 +12,11 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import { useEffect,useState } from "react";
+import UserHome from "../components/UserHome"
+
+const axios = require("axios");
+
 
 function Copyright() {
   return (
@@ -56,7 +61,31 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-const submitIt=(e)=>{
+
+
+export default function SignInSide() {
+  const classes = useStyles();
+  ///
+  const [login,setLogin] = useState();
+  const [password,setPassword] = useState();
+  const [logged,setLogged] = useState();
+  ///
+  useEffect(()=>{
+      axios.get("http://localhost:1029/users")
+      .then(function(response){
+        console.log("we got you "+response.data[0].login);
+        setLogin(response.data[0].login);
+        setPassword(response.data[0].password);
+      })
+      .catch(function(error){
+        console.log(error);
+      });
+  });
+  /* We don't need to use these cuz we got that from the form
+  const loginRef=React.createRef();
+  const passwordRef=React.createRef();
+  */
+  const submitIt=(e)=>{
     e.preventDefault();
     /**
         e.target.childNodes : 
@@ -66,13 +95,25 @@ const submitIt=(e)=>{
         * 3 : "Sign In" zone
         * 4 : "Forget password" & "Don't have an account? Sign Up" zone
         * 5 : "Copyright .." zone
-     */
+    */
+    const inLogin=e.target.childNodes[0].lastChild.childNodes[0].value;
+    const inPassword=e.target.childNodes[1].lastChild.childNodes[0].value;
+    if(inLogin===login && inPassword===password){
+      setLogged(true);
+      localStorage.setItem("loggedUser",JSON.stringify({
+        "name":inLogin,
+        "password":inPassword
+      }));
+      console.log("well typed");
+    }else{
+      console.log("bad typed, sorry");
+    }
     console.log("Login : "+e.target.childNodes[0].lastChild.childNodes[0].value);
     console.log("Password : "+e.target.childNodes[1].lastChild.childNodes[0].value)
-}
-export default function SignInSide() {
-  const classes = useStyles();
-
+  }
+  if(logged || localStorage.getItem("loggedUser")!=null){
+    return <UserHome />;
+  }
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />

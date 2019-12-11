@@ -1,129 +1,185 @@
-import React, { createRef } from 'react';
-import './App.css';
-import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import React from 'react';
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import styles from './App.module.css'; 
-import earth from "./Beautiful_mother_earth.mp4";
-//import {Redirect} from "react-router-dom";
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
+import Paper from '@material-ui/core/Paper';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import { useEffect,useState } from "react";
 import UserHome from "./components/UserHome"
-/**
- * 
- * 
- */
-import { useSpring, animated } from 'react-spring'
 
- /////////
 const axios = require("axios");
 
-class App extends React.Component {
-  constructor(props){
-    super(props);
-    this.state={
-      login:"grego",
-      password:"098",
-      logged:false,
-    };
-    this.loginRef=createRef();
-    this.passwordRef=createRef();
-  }
-  moveOn=(el)=>{
-    el.target.style.opacity="1";
-  }
-  moveOut=(el)=>{
-    el.target.style.opacity="0.3"
-  }
-  componentDidMount(){
-    const self=this;
-    axios.get("http://localhost:1029/users")
-    .then(function(response){
-      console.log("we got you "+response.data[0].login);
-      self.setState({
-        login:response.data[0].login,
-        password:response.data[0].password
-      });
-    })
-    .catch(function(error){
-      console.log(error);
-    })
-  }
-  signIn=()=>{
-    if((this.loginRef.current.childNodes[1].firstChild.value===this.state.login) && (this.passwordRef.current.childNodes[1].firstChild.value===this.state.password)){
-      console.log("Accepted mate");
-      localStorage.setItem("loggedUser",JSON.stringify({
-        "name":this.loginRef.current.childNodes[1].firstChild.value,
-        "password":this.passwordRef.current.childNodes[1].firstChild.value
-      }));
-      this.setState({
-        logged:true
-      });
-    }else{
-      console.log("Nope, one of those is incorrect");
-    }
-  }
-  render(){
-    if(1==2 ){
-     return <CircularProgress />
-    }
-    else if(this.state.logged || localStorage.getItem("loggedUser")!=null){
-      return <UserHome />
-    }
-    else{
-      return(
-        <div className="App" style={{textAlign:"center",margin:50}}>
-          <h3>Welcome to <span style={{color:"green"}}>Clean Evn, Easy Cash</span> App</h3><br/>
-          <video autoPlay loop muted className={styles.backVideo}>
-            <source src={earth} type="video/mp4" />
-            Your browser does not support HTML5 video.
-          </video>
-          <Card className={styles.cardDefault} onMouseOver={this.moveOn} onMouseLeave={this.moveOut}>
-          <br/>
-            <form noValidate autoComplete="off" onSubmit={this.submitForm} >
-                <span>
-                  <TextField id="standard-basic" variant="outlined" label="Name" ref={this.loginRef} />
-                </span><br/><br/>
-                <span style={{marginTop:40}}>
-                  <TextField id="standard-basic" variant="outlined" label="Password" ref={this.passwordRef} />
-                </span><br/><br/>
-                <Button variant="contained" color="primary" onClick={this.signIn}>
-                  Sign-In
-                </Button>
-            </form>
-            <br/>
-          </Card>
-          <SpringCard />
-        </div>
-      )
-    }
-    
-  }
-}
-const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 5) / 20, 1.1]
-const trans = (x, y, s) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`
 
-function SpringCard(){
-  const [props, set] = useSpring(() => ({ xys: [0, 0, 1], config: { mass: 5, tension: 350, friction: 40 } }))
+function Copyright() {
   return (
-    <animated.div
-      className="springCard"
-      onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
-      onMouseLeave={() => set({ xys: [0, 0, 1] })}
-      style={{ transform: props.xys.interpolate(trans) }}
-    >
-       <form noValidate autoComplete="off" onSubmit={props.submitForm} style={{marginTop:70}} >
-              <span>
-                <TextField id="standard-basic" variant="outlined" label="Name"  />
-              </span><br/><br/>
-              <span style={{marginTop:40}}>
-                <TextField id="standard-basic" variant="outlined" label="Password"  />
-              </span><br/><br/>
-              <Button variant="contained" color="primary" onClick={props.signIn}>
-                Sign-In
-              </Button>
-          </form>
-      </animated.div>
-  )
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://github.com/BLemine/">
+        Clean Env, Easy Cash
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
 }
 
-export default App;
+const useStyles = makeStyles(theme => ({
+  root: {
+    height: '100vh',
+  },
+  image: {
+    backgroundImage: 'url(https://source.unsplash.com/random)',
+    backgroundRepeat: 'no-repeat',
+    backgroundColor:
+      theme.palette.type === 'dark' ? theme.palette.grey[900] : theme.palette.grey[50],
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  },
+  paper: {
+    margin: theme.spacing(8, 4),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(1),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
+
+
+export default function App() {
+  const classes = useStyles();
+  ///
+  const [login,setLogin] = useState();
+  const [password,setPassword] = useState();
+  const [logged,setLogged] = useState();
+  ///
+  useEffect(()=>{
+      axios.get("http://localhost:1029/users")
+      .then(function(response){
+        console.log("we got you "+response.data[0].login);
+        setLogin(response.data[0].login);
+        setPassword(response.data[0].password);
+      })
+      .catch(function(error){
+        console.log(error);
+      });
+  });
+  /* We don't need to use these cuz we got that from the form
+  const loginRef=React.createRef();
+  const passwordRef=React.createRef();
+  */
+  const submitIt=(e)=>{
+    e.preventDefault();
+    /**
+        e.target.childNodes : 
+        * 0 : the Login zone
+        * 1 : the password zone 
+        * 2 : the "remember me" zone
+        * 3 : "Sign In" zone
+        * 4 : "Forget password" & "Don't have an account? Sign Up" zone
+        * 5 : "Copyright .." zone
+    */
+    const inLogin=e.target.childNodes[0].lastChild.childNodes[0].value;
+    const inPassword=e.target.childNodes[1].lastChild.childNodes[0].value;
+    if(inLogin===login && inPassword===password){
+      setLogged(true);
+      localStorage.setItem("loggedUser",JSON.stringify({
+        "name":inLogin,
+        "password":inPassword
+      }));
+      console.log("well typed");
+    }else{
+      console.log("bad typed, sorry");
+    }
+    console.log("Login : "+e.target.childNodes[0].lastChild.childNodes[0].value);
+    console.log("Password : "+e.target.childNodes[1].lastChild.childNodes[0].value)
+  }
+  if(logged || localStorage.getItem("loggedUser")!=null){
+    return <UserHome />;
+  }
+  return (
+    <Grid container component="main" className={classes.root}>
+      <CssBaseline />
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <form className={classes.form} noValidate onSubmit={submitIt}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="login"
+              label="Login"
+              name="login"
+              autoComplete="login"
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />
+            <FormControlLabel
+              control={<Checkbox value="remember" color="primary" />}
+              label="Remember me"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+            <Grid container>
+              <Grid item xs>
+                <Link href="#" variant="body2">
+                  Forgot password?
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link href="#" variant="body2">
+                  {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+            </Grid>
+            <Box mt={5}>
+              <Copyright />
+            </Box>
+          </form>
+        </div>
+      </Grid>
+    </Grid>
+  );
+}
