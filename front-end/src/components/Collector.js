@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-
-class Collector extends Component {
+import NavBar from "./PrimarySearchAppBar"
+export default class Collector extends Component {
     render(){
         return(
-            null
+           <NavBar />
         )
     }
 }
