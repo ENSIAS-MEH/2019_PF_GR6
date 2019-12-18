@@ -96,6 +96,8 @@ export default function PrimarySearchAppBar() {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+    localStorage.removeItem("loggedUser");
+    window.location.reload(true);
   };
 
   const handleMobileMenuOpen = event => {
@@ -114,7 +116,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>SignOut</MenuItem>
     </Menu>
   );
 

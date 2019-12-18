@@ -13,7 +13,7 @@ app.get("/users", (req,res)=>{
 	      id: 0,
 	      login: 'Lemine',
 		  password: '$^^$',
-		  type:"client"
+		  type:"recruiter"
 	    },
 	    {
 	      id: 1,
@@ -25,7 +25,7 @@ app.get("/users", (req,res)=>{
 			id:2,
 			login:'Gregoire',
 			password:'ç1A2Z',
-			type:"collector"
+			type:"provider"
 		}
 	  ]
 	);

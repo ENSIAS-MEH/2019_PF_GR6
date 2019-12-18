@@ -13,8 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { useEffect,useState } from "react";
-import UserHome from "./components/UserHome"
-
+import ServiceRecruiter from "./components/ServiceRecruiter"
+import Collector from "./components/Collector"
 const axios = require("axios");
 
 
@@ -68,6 +68,7 @@ export default function App() {
   ///
   const [login,setLogin] = useState();
   const [password,setPassword] = useState();
+  const [userType,setUserType] = useState();
   const [logged,setLogged] = useState();
   ///
   useEffect(()=>{
@@ -76,6 +77,7 @@ export default function App() {
         console.log("we got you "+response.data[0].login);
         setLogin(response.data[0].login);
         setPassword(response.data[0].password);
+        setUserType(response.data[0].type);
       })
       .catch(function(error){
         console.log(error);
@@ -102,7 +104,8 @@ export default function App() {
       setLogged(true);
       localStorage.setItem("loggedUser",JSON.stringify({
         "name":inLogin,
-        "password":inPassword
+        "password":inPassword,
+        "usertype":userType,
       }));
       console.log("well typed");
     }else{
@@ -112,7 +115,12 @@ export default function App() {
     console.log("Password : "+e.target.childNodes[1].lastChild.childNodes[0].value)
   }
   if(logged || localStorage.getItem("loggedUser")!=null){
-    return <UserHome />;
+    if(JSON.parse(localStorage.getItem("loggedUser")).usertype=="recruiter")
+    return <ServiceRecruiter />;
+    else if(JSON.parse(localStorage.getItem("loggedUser")).usertype=="provider"){
+      console.log("type : "+JSON.parse(localStorage.getItem("loggedUser")).usertype)
+      return <Collector />
+    }
   }
   return (
     <Grid container component="main" className={classes.root}>

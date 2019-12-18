@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-//import SignInSide from "./modules/SignInSide";
+//import Collector from "./components/Collector";
+//import Chat from "./components/Chat";
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<App />, document.getElementById('root'));
