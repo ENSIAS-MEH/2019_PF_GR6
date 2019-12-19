@@ -76,8 +76,9 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     paddingBottom: 50,
-    height:'10%',
-    overflow:'auto'
+    height:541,
+    marginTop:30,
+    overflow:'auto',
   },
   list: {
     marginBottom: 0,
@@ -109,21 +110,24 @@ export default function Chat() {
   const [chat,setChat]=useState(messages);
   const classes = useStyles();
   const mssgRef=React.createRef();
+  const paperRef=React.createRef();
   const addMessage = ()=>{
-      console.log(mssgRef.current.childNodes[1].firstChild.value);
+      //console.log(mssgRef.current.childNodes[1].firstChild.value);
       const idUnique=chat[chat.length-1].id+1
       let oldChat=chat.concat([{
         id: idUnique,
-        primary: 'Gregaa',
-        secondary: `Mate you know me`,
+        primary: 'Collector',
+        secondary: mssgRef.current.childNodes[1].firstChild.value,
         person: garbage_collector,
       }]);
       setChat(oldChat);
+      mssgRef.current.childNodes[1].firstChild.focus();
+      paperRef.current.scrollIntoView({ behavior: 'smooth',block: 'start' })
     }
   return (
     <React.Fragment>
       <CssBaseline />
-      <Paper square className={classes.paper}>
+      <Paper square className={classes.paper} ref={paperRef}>
         <Typography className={classes.text} variant="h5" gutterBottom>
           Inbox
         </Typography>

@@ -10,17 +10,22 @@ export default class Collector extends Component {
             noposts:"No posts available",
             postsAvailable:false,
             chatMode:false,
-            notifMode:false
+            notifMode:false,
         }
     }
+    chat=()=>{
+        this.setState({
+            chatMode:true
+        })
+    } 
     render(){
-       // let bodyContent=(this.state.postsAvailable?this.state.posts:this.state.noposts);
-        return(
+       // let bodyContent=(this.state.postsAvailable?this.state.posts:this.state.noposts);        
+       return(
             <div className="root" style={{backgroundColor:"#D3D3D3",height:"100%"}}>
                 <div className="footer">
-                    <NavBar />
+                    <NavBar goChat={this.chat} />
                 </div>
-                <div className="body" style={{textAlign:"center"}}>
+                {!this.state.chatMode && <div className="body" style={{textAlign:"center"}}>
                     <div style={{display:'inline-block'}}>
                         <Post />
                     </div>
@@ -33,12 +38,13 @@ export default class Collector extends Component {
                     <div style={{display:'inline-block'}}>
                         <Post />
                     </div>  
-                </div>
-                <div className="bottom" style={{textAlign:"center",width:"100%"}}>
+                </div>}
+
+                {this.state.chatMode && <div className="bottom" style={{textAlign:"center",width:"100%"}}>
                     <div style={{width:"50%",marginLeft:"25%"}}>
                         <Chat />
                     </div>
-                </div>
+                </div>}
             </div>
         )
     }
