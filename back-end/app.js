@@ -44,5 +44,36 @@ app.get("/posts",(req,res)=>{
 		]
 	)
 });
-app.get("/",(req,res)=>{res.send("Gregoire");});
+app.get("/messages/:user/:type",(req,res)=>{
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	if(req.params.user==="Lemine" && req.params.type==="provider"){
+		res.send(
+			[
+				{
+					id: 1,
+					primary: 'James',
+					secondary: "I'll be in the neighbourhood this week. Let's grab a bite to eat",
+					person: null,
+				  },
+				  {
+					id: 2,
+					primary: 'Renard',
+					secondary: `Do you have a suggestion for a good present for John on his work
+					  anniversary. I am really confused & would love your thoughts on it.`,
+					person: null,
+				  },
+				  {
+					id: 3,
+					primary: 'Tomas',
+					secondary: 'I am try out this new BBQ recipe, I think this might be amazing',
+					person: null,
+				  }
+				  
+			]
+		)
+	}
+	else
+	res.send(" yew : "+req.params.user+", type : "+req.params.type);
+})
+app.get("/",(req,res)=>{res.send("Micro-services Big Father");});
 app.listen(1029,()=>{console.log("Connecting .."+1029);});
