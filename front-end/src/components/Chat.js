@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -20,7 +20,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import service_recruiter from "../media/service_recruiter.jpg"
 import garbage_collector from "../media/garbage_collector.jpg"
 import TextField from '@material-ui/core/TextField';
-
+const axios = require("axios");
 const messages = [
   {
     id: 1,
@@ -111,6 +111,15 @@ export default function Chat() {
   const classes = useStyles();
   const mssgRef=React.createRef();
   const paperRef=React.createRef();
+  useEffect(()=>{
+    axios.get("http://localhost:1029/users/Lemine/recruiter")
+      .then(function(response){
+        console.log("Gotten messages : "+response.data)
+      })
+      .catch(function(error){
+        console.log(error);
+      });
+  })
   const addMessage = ()=>{
       //console.log(mssgRef.current.childNodes[1].firstChild.value);
       const idUnique=chat[chat.length-1].id+1
