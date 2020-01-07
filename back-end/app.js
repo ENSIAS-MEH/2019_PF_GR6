@@ -51,12 +51,14 @@ app.get("/messages/:user/:type",(req,res)=>{
 			[
 				{
 					id: 1,
+					mssg:{source:"Tomas",dest:"James"},
 					primary: 'James',
 					secondary: "I'll be in the neighbourhood this week. Let's grab a bite to eat",
 					person: null,
 				  },
 				  {
 					id: 2,
+					mssg:{source:"Tomas",dest:"James"},
 					primary: 'Renard',
 					secondary: `Do you have a suggestion for a good present for John on his work
 					  anniversary. I am really confused & would love your thoughts on it.`,
@@ -64,6 +66,7 @@ app.get("/messages/:user/:type",(req,res)=>{
 				  },
 				  {
 					id: 3,
+					mssg:{source:"Tomas",dest:"James"},
 					primary: 'Tomas',
 					secondary: 'I am try out this new BBQ recipe, I think this might be amazing',
 					person: null,

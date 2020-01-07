@@ -14,7 +14,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-
+import {MessageContext} from "./Collector"
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1,
@@ -160,8 +160,13 @@ export default function PrimarySearchAppBar(props) {
       </MenuItem>
     </Menu>
   );
-
+  const getMessages=(messages)=>{
+    console.log("number of messages : "+messages.length);
+    return messages.length
+  }
   return (
+    <MessageContext.Consumer>
+      {({ messages }) => (
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
@@ -197,7 +202,7 @@ export default function PrimarySearchAppBar(props) {
               </Badge>
             </IconButton>
             <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
+              <Badge badgeContent={getMessages(messages)} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
@@ -228,5 +233,7 @@ export default function PrimarySearchAppBar(props) {
       {renderMobileMenu}
       {renderMenu}
     </div>
+    )}
+    </MessageContext.Consumer>
   );
 }

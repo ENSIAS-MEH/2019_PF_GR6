@@ -19,13 +19,13 @@ const useStyles = makeStyles({
 
 export default function Post(props) {
   const classes = useStyles();
-  const defaultPostContent="Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica";
+  const defaultPostContent=props.postContent || "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica";
   return (
     <Card className={classes.card}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={logo192}
+          image={props.logo || logo192}
           title="Contemplative Reptile"
         />
         <CardContent>
