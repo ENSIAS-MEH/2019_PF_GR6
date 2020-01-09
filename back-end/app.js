@@ -1,33 +1,65 @@
 const express=require("express");
 const app=express();
+let users=[
+	{
+	  id: 0,
+	  login: 'Lemine',
+	  password: '$^^$',
+	  type:"provider",
+	  email:"alpha@gmail.com"
+	},
+	{
+	  id: 1,
+	  login: 'Ilias',
+	  password: '123',
+	  type:"provider",
+	  email:"beta@hotmail.com"
+	},
+	{
+		id:2,
+		login:'Gregoire',
+		password:'ç1A2Z',
+		type:"provider",
+		email:"delta@outlook.com"
+	}
+  ];
+let recruiterNotif=[
+	{
+		provider:"",
+		recruiter:"",
+		avatar:""
+	}
+];
+let providerNotif=[
+	{
+		recruiter:"",
+		provider:""
+	}
+];
+let clickedPost={
+	price:"",
+	city:""
+}
+let messagesForRecruiter=[];
+let messagesForCollector=[];
+let posts=[];
+const findUser=(name)=>{
+	let exists=false;
+	for(let i in users){
+		if(users[i].login===name){
+			exists=true;
+		}
+	}
+	return exists;
+}
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   next();
 });
 app.get("/users", (req,res)=>{
-	  res.setHeader('Access-Control-Allow-Origin', '*');
-
+	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.send(
-		[
-	    {
-	      id: 0,
-	      login: 'Lemine',
-		  password: '$^^$',
-		  type:"recruiter"
-	    },
-	    {
-	      id: 1,
-	      login: 'Ilias',
-		  password: '123',
-		  type:"client"
-		},
-		{
-			id:2,
-			login:'Gregoire',
-			password:'ç1A2Z',
-			type:"provider"
-		}
-	  ]
+		users
 	);
 });
 app.get("/posts",(req,res)=>{
@@ -107,6 +139,40 @@ app.get("/messages/:user/:type",(req,res)=>{
 	}
 	else
 	res.send(" yew : "+req.params.user+", type : "+req.params.type);
-})
+});
+app.get("/new/:username/:password/:type/:email",(req,res)=>{
+	const lastId=users[users.length-1].id;
+	if(findUser(req.params.username)){
+		res.send("Sorry, users already exists");
+	}else{
+		users.push(
+			{
+				id:lastId+1,
+				login:req.params.username,
+				password:req.params.password,
+				type:req.params.type,
+				email:req.params.email
+			}
+		);
+		res.send(
+			"welcome new user : "+req.params.username+" with the id : "+users[users.length-1].id
+		)
+	} 
+});
+app.get("/clickedPost/:recruiter",(req,res)=>{
+	if(req.params.recruiter==="IBIS"){
+		clickedPost={
+			price:"700dhs",
+			city:"Casablanca"
+		}
+	}
+	else if(req.params.recruiter==="Alaoui"){
+		clickedPost={
+			price:"450dhs",
+			city:"Oujda"
+		}
+	}
+	res.send(clickedPost);
+});
 app.get("/",(req,res)=>{res.send("Micro-services Big Father");});
 app.listen(1029,()=>{console.log("Connecting .."+1029);});

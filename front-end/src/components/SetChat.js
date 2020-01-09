@@ -33,7 +33,7 @@ const messages = [
     id: 3,
     primary: 'Zouhair',
     secondary: 'I am try out this new BBQ recipe, I think this might be amazing',
-    person: garbage_collector,
+    person: service_recruiter,
   },
   {
     id: 4,
@@ -100,8 +100,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 //
-export default function SetChat() {
-  const [chat,setChat]=useState(messages);
+export default function SetChat(props) {
+  const [chat,setChat]=useState(props.chat || messages);
   const [privateChat,setPrivateChat]=useState(false);
   const [recruiters,setRecruiters]=useState([]);
   const classes = useStyles();

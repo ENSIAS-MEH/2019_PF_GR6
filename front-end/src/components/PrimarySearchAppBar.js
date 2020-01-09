@@ -15,6 +15,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import {MessageContext} from "./Collector"
+import CreateIcon from '@material-ui/icons/Create';
+
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1,
@@ -99,6 +101,10 @@ export default function PrimarySearchAppBar(props) {
     localStorage.removeItem("loggedUser");
     window.location.reload(true);
   };
+  const handleMenuProfile=()=>{
+    setAnchorEl(null);
+
+  }
 
   const handleMobileMenuOpen = event => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -115,7 +121,7 @@ export default function PrimarySearchAppBar(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleMenuProfile}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>SignOut</MenuItem>
     </Menu>
   );
@@ -132,6 +138,7 @@ export default function PrimarySearchAppBar(props) {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
+      
         <IconButton aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={4} color="secondary">
             <MailIcon />
@@ -196,6 +203,11 @@ export default function PrimarySearchAppBar(props) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+          {props.write && <IconButton aria-label="" color="inherit">
+          <Badge  color="secondary">
+            <CreateIcon />
+          </Badge>
+        </IconButton>}
             <IconButton aria-label="show 4 new mails" color="inherit" onClick={props.goChat}>
               <Badge badgeContent={4} color="secondary">
                 <MailIcon />

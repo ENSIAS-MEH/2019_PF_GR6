@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 
 export default function Post(props) {
   const classes = useStyles();
-  const defaultPostContent=props.postContent || "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica";
+  const defaultPostContent=props.postContent || "I'm really in rush, i want a quick service and a clean work, don't hesitate to apply for more information about the post";
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -30,21 +30,20 @@ export default function Post(props) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Lizard
+            {props.title || "Rabat" }
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {props.postContent?props.postContent:defaultPostContent}
           </Typography>
         </CardContent>
       </CardActionArea>
+      <div style={{padding:"5px 110px"}}>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" >
           Learn More
         </Button>
       </CardActions>
+      </div>
     </Card>
   );
 }

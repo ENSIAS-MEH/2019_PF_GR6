@@ -15,6 +15,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useEffect,useState } from "react";
 import ServiceRecruiter from "./components/ServiceRecruiter"
 import Collector from "./components/Collector"
+import SignUp from "./modules/SignUp"
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
+import {createNotification} from "./components/PopUpMessage"
 const axios = require("axios");
 
 
@@ -71,10 +75,36 @@ export default function App() {
   const [userType,setUserType] = useState();
   const [logged,setLogged] = useState();
   ///
+  const [tosignUp,setToSignUp]=useState(false);
+  ///
+  const [users,setUsers]=useState([
+    {
+      id:1,
+      login:"Lemine",
+      password:"APZO",
+      type:"provider"
+    }
+  ])
+  ///
+  const exists=(name)=> {
+    let exists=false;
+    console.log(users)
+    for(let i in users){
+      if(name===users[i].name){
+        exists=true;
+      }
+    }
+    return exists;
+  }
+  ///
   useEffect(()=>{
       axios.get("http://localhost:1029/users")
       .then(function(response){
-        console.log("we got you "+response.data[0].login);
+        let dataAux=users;
+        for(let i in response.data)
+          dataAux.push(response.data[i])
+        setUsers(dataAux)
+        //console.log("we got you "+response.data[0].login);
         setLogin(response.data[0].login);
         setPassword(response.data[0].password);
         setUserType(response.data[0].type);
@@ -107,13 +137,19 @@ export default function App() {
         "password":inPassword,
         "usertype":userType,
       }));
+      
       console.log("well typed");
     }else{
+      NotificationManager.error("please enter a valid combinaison", "bad typed", 5000, () => {
+        alert('bad information');
+      });
+      console.log(users)
       console.log("bad typed, sorry");
     }
     console.log("Login : "+e.target.childNodes[0].lastChild.childNodes[0].value);
     console.log("Password : "+e.target.childNodes[1].lastChild.childNodes[0].value)
   }
+  // rendering :
   if(logged || localStorage.getItem("loggedUser")!=null){
     if(JSON.parse(localStorage.getItem("loggedUser")).usertype=="recruiter")
     return <ServiceRecruiter />;
@@ -121,6 +157,8 @@ export default function App() {
       console.log("type : "+JSON.parse(localStorage.getItem("loggedUser")).usertype)
       return <Collector />
     }
+  }else if(tosignUp){
+    return <SignUp />;
   }
   return (
     <Grid container component="main" className={classes.root}>
@@ -177,7 +215,7 @@ export default function App() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="#" variant="body2" onClick={()=>{setToSignUp(true)}}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -188,6 +226,7 @@ export default function App() {
           </form>
         </div>
       </Grid>
+      <NotificationContainer />
     </Grid>
   );
 }
