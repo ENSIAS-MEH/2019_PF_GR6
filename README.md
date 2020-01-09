@@ -1,5 +1,5 @@
 ### About : 
-It's about creating an OTOBOS application to link the two principal actors for a clean environment by offering an easy cash for the first actor and a clean place for the another actor, is it ambiguous :) well ... it's about the creation of a cleanTech application which provides to people to report any garbage in their area, in front of a Hotel, an entreprise or an important place and this to get it off by what we call "Service Provider" who can be ..
+It's about creating an OTOBOS application to link the two principal actors for a clean environment by offering an easy cash for the first actor and a clean place for the another actor, is it ambiguous :) well ... it's about the creation of a cleanTech application which provides reporting any kinda garbage in a specific area, in front of a Hotel, an entreprise or an important place to get it off by what we call "Service Provider" who can be an individual worker or an independent entreprise.
 ### Project Innovation Process :
 
 ### Set up the environment : 
@@ -13,17 +13,40 @@ Go to _back-end_ directory and type : ``node app.js`` to run the server on the p
 Go to _front-end_ directory and type : `` nodemon ``
 
 ### Some Interfaces :
-- LoginIn (Model1) :
+- LoginIn :
+
 
 ![](readme_media/auth1.png)
 
-- LoginIn (Model2) : 
+The image in the left side is generated automatically everytime we reload the page.
 
-![](readme_media/auth0.png)
+- Wrong SignIn process : 
 
-- Collector - Chat Room : 
+![](readme_media/badSignIn.png)
 
-![](readme_media/chat1.png)
-![](readme_media/chat2.png)
+- The available posts/jobs (after a successful sign-in process) : 
+
+![](readme_media/posts0.png)
+
+- View a post details by clicking on it : 
+
+![](readme_media/post_details.png)
+
+- Applying to a job : 
+
+![](readme_media/apply_post.png)
+
+- Collector - Global Room : 
+
+To access to this, just click the chat icon on the top right.
+It contains the chat with all recruiters, he can go to the ChatRoom with a specific recruiter by selecting him and this is by clicking on his message
+
+![](readme_media/global_chat.png)
+
+- Collector - ChatRoom : 
+
+For example in this case, the recruiter "ATLAS Hotel" room chat is selected.
+
+![](readme_media/ChatRoom2.png)
 
 _This will be updated periodically_
