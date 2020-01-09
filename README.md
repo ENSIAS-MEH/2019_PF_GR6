@@ -1,6 +1,16 @@
 ### About : 
 It's about creating an OTOBOS application to link the two principal actors for a clean environment by offering an easy cash for the first actor and a clean place for the another actor, is it ambiguous :) well ... it's about the creation of a cleanTech application which provides reporting any kinda garbage in a specific area, in front of a Hotel, an entreprise or an important place to get it off by what we call "Service Provider" who can be an individual worker or an independent entreprise.
-### Project Innovation Process :
+### Innovation Process Diagram : 
+
+![](readme_media/bpmn.png)
+
+### Technical Architecture :
+
+![](readme_media/technical_architecture.png)
+
+### Classes Diagram : 
+
+![](readme_media/classes_diagram.png)
 
 ### Set up the environment : 
 Open the terminal and type : `` npm install ``
