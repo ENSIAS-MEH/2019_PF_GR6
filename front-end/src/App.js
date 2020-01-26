@@ -78,25 +78,9 @@ export default function App() {
   const [tosignUp,setToSignUp]=useState(false);
   ///
   const [users,setUsers]=useState([
-    {
-      id:1,
-      login:"Lemine",
-      password:"APZO",
-      type:"provider"
-    }
+    
   ])
-  ///
-  const exists=(name)=> {
-    let exists=false;
-    console.log(users)
-    for(let i in users){
-      if(name===users[i].name){
-        exists=true;
-      }
-    }
-    return exists;
-  }
-  ///
+  
   useEffect(()=>{
       axios.get("http://localhost:1029/users")
       .then(function(response){
@@ -105,14 +89,27 @@ export default function App() {
           dataAux.push(response.data[i])
         setUsers(dataAux)
         //console.log("we got you "+response.data[0].login);
-        setLogin(response.data[0].login);
+        /*setLogin(response.data[0].login);
         setPassword(response.data[0].password);
-        setUserType(response.data[0].type);
+        setUserType(response.data[0].type);*/
       })
       .catch(function(error){
         console.log(error);
       });
   });
+  ///
+  const findIt=(login,password)=> {
+    let exists=null;
+    for(let i in users){
+      if(login===users[i].login && password===users[i].password){
+        //setUserType("provider");
+        console.log("type gotten from findIt : "+users[i].type)
+        exists=users[i].type;
+      }
+    }
+    return exists;
+  }
+  ///
   /* We don't need to use these cuz we got that from the form
   const loginRef=React.createRef();
   const passwordRef=React.createRef();
@@ -130,24 +127,34 @@ export default function App() {
     */
     const inLogin=e.target.childNodes[0].lastChild.childNodes[0].value;
     const inPassword=e.target.childNodes[1].lastChild.childNodes[0].value;
-    if(inLogin===login && inPassword===password){
+    /*if(inLogin===login && inPassword===password){
       setLogged(true);
       localStorage.setItem("loggedUser",JSON.stringify({
         "name":inLogin,
         "password":inPassword,
-        "usertype":userType,
+        "usertype":"provider",
       }));
       
       console.log("well typed");
-    }else{
+    }*/
+    if(findIt(inLogin,inPassword)!=null){
+      setLogged(true);
+      localStorage.setItem("loggedUser",JSON.stringify({
+        "name":inLogin,
+        "password":inPassword,
+        "usertype":findIt(inLogin,inPassword),
+      }));
+      console.log("well typed and type : "+userType)
+    }
+    else{
       NotificationManager.error("please enter a valid combinaison", "bad typed", 5000, () => {
         alert('bad information');
       });
       console.log(users)
       console.log("bad typed, sorry");
     }
-    console.log("Login : "+e.target.childNodes[0].lastChild.childNodes[0].value);
-    console.log("Password : "+e.target.childNodes[1].lastChild.childNodes[0].value)
+    //console.log("Login : "+e.target.childNodes[0].lastChild.childNodes[0].value);
+    //console.log("Password : "+e.target.childNodes[1].lastChild.childNodes[0].value)
   }
   // rendering :
   if(logged || localStorage.getItem("loggedUser")!=null){

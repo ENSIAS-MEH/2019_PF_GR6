@@ -5,7 +5,7 @@ let users=[
 	  id: 0,
 	  login: 'Lemine',
 	  password: '$^^$',
-	  type:"provider",
+	  type:"recruiter",
 	  email:"alpha@gmail.com"
 	},
 	{
