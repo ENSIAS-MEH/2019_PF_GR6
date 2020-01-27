@@ -52,9 +52,15 @@ const findUser=(name)=>{
 	}
 	return exists;
 }
+//
+let bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+//
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  next();
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  	next();
 });
 app.get("/users", (req,res)=>{
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -159,6 +165,25 @@ app.get("/new/:username/:password/:type/:email",(req,res)=>{
 		)
 	} 
 });
+// same as .get("new/:username/:...")
+app.post("/newUser",(req,res)=>{
+	const lastId=users[users.length-1].id;
+	if(findUser(req.body.username)){
+		res.send("No");
+	}else{
+		users.push(
+			{
+				id:lastId+1,
+				login:req.body.username,
+				password:req.body.password,
+				type:req.body.type,
+				email:req.body.email
+			}
+		);
+		res.send(users)
+	}
+});
+//
 app.get("/clickedPost/:recruiter",(req,res)=>{
 	if(req.params.recruiter==="IBIS"){
 		clickedPost={

@@ -15,7 +15,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import SignIn from "../App";
 import { useState } from "react";
 import ServiceRecruiter from "../components/ServiceRecruiter"
-import Collector from "../components/Collector"
+import Collector from "../components/Collector";
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+
 const axios = require("axios");
 
 function Copyright() {
@@ -60,15 +65,23 @@ const useStyles = makeStyles(theme => ({
       submit: {
         margin: theme.spacing(3, 0, 2),
       },
+      formControl: {
+        margin: theme.spacing(1),
+        minWidth: "100%",
+      }
 }));
 
 export default function SignUp() {
   const classes = useStyles();
   const [signed,setSigned]=useState(false);
+  const [type,setType]=useState('');
   const firstRef=React.createRef();
   const lastRef=React.createRef();
   const emailRef=React.createRef();
   const passwordRef=React.createRef();
+  const handleChange = event => {
+    setType(event.target.value);
+  };
   const submitIt=(e)=>{
     e.preventDefault();
     const inFirstname=firstRef.current.lastChild.firstChild.value;
@@ -76,7 +89,7 @@ export default function SignUp() {
     const inLastname=lastRef.current.lastChild.firstChild.value;
     const inEmail=emailRef.current.lastChild.firstChild.value;
 
-        axios.get("http://localhost:1029/new/"+inFirstname+"/"+inPassword+"/recruiter/"+inEmail)
+       /* axios.get("http://localhost:1029/new/"+inFirstname+"/"+inPassword+"/recruiter/"+inEmail)
           .then(function(response){
             localStorage.setItem("loggedUser",JSON.stringify({
                 "name":inFirstname,
@@ -88,8 +101,17 @@ export default function SignUp() {
           })
           .catch(function(error){
             console.log(error);
-          });
- 
+          });*/
+    axios.post("http://localhost:1029/newUser",{
+      "username":inFirstname,
+      "password":inPassword,
+      "type":type,
+      "email":inEmail
+    }).then(response=>{
+      console.log(response.data);
+    }).catch(err=>{
+      console.log(err);
+    })
     
     /*console.log("firstname :"+firstRef.current.lastChild.firstChild.value)
     console.log("lastname :"+lastRef.current.lastChild.firstChild.value)
@@ -145,6 +167,20 @@ export default function SignUp() {
                 autoComplete="lname"
                 ref={lastRef}
               />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={type}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="recruiter">recruiter</MenuItem>
+                  <MenuItem value="provider">provider</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <TextField

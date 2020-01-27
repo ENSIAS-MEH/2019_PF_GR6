@@ -144,7 +144,7 @@ export default function App() {
         "password":inPassword,
         "usertype":findIt(inLogin,inPassword),
       }));
-      console.log("well typed and type : "+userType)
+      //console.log("well typed and type : "+userType)
     }
     else{
       NotificationManager.error("please enter a valid combinaison", "bad typed", 5000, () => {
