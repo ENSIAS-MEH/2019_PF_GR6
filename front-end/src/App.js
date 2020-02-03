@@ -19,6 +19,7 @@ import SignUp from "./modules/SignUp"
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import {createNotification} from "./components/PopUpMessage"
+import ChatBot from "./components/ChatBot"
 const axios = require("axios");
 
 
@@ -233,6 +234,7 @@ export default function App() {
           </form>
         </div>
       </Grid>
+      <ChatBot />
       <NotificationContainer />
     </Grid>
   );
