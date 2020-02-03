@@ -1,0 +1,36 @@
+{
+  "files": {
+    "main.css": "/2019_PF_GR6/static/css/main.371bacde.chunk.css",
+    "main.js": "/2019_PF_GR6/static/js/main.77687ac8.chunk.js",
+    "main.js.map": "/2019_PF_GR6/static/js/main.77687ac8.chunk.js.map",
+    "runtime-main.js": "/2019_PF_GR6/static/js/runtime-main.e7d4785e.js",
+    "runtime-main.js.map": "/2019_PF_GR6/static/js/runtime-main.e7d4785e.js.map",
+    "static/css/2.c72531a6.chunk.css": "/2019_PF_GR6/static/css/2.c72531a6.chunk.css",
+    "static/js/2.63c13f61.chunk.js": "/2019_PF_GR6/static/js/2.63c13f61.chunk.js",
+    "static/js/2.63c13f61.chunk.js.map": "/2019_PF_GR6/static/js/2.63c13f61.chunk.js.map",
+    "index.html": "/2019_PF_GR6/index.html",
+    "precache-manifest.051f7558bdf063096dc9fd42ed602ef8.js": "/2019_PF_GR6/precache-manifest.051f7558bdf063096dc9fd42ed602ef8.js",
+    "service-worker.js": "/2019_PF_GR6/service-worker.js",
+    "static/css/2.c72531a6.chunk.css.map": "/2019_PF_GR6/static/css/2.c72531a6.chunk.css.map",
+    "static/css/main.371bacde.chunk.css.map": "/2019_PF_GR6/static/css/main.371bacde.chunk.css.map",
+    "static/media/UploadIcon.svg": "/2019_PF_GR6/static/media/UploadIcon.1cedb6e9.svg",
+    "static/media/garbage1.jpeg": "/2019_PF_GR6/static/media/garbage1.96cf9264.jpeg",
+    "static/media/garbage2.jpeg": "/2019_PF_GR6/static/media/garbage2.85aac6fa.jpeg",
+    "static/media/garbage3.jpg": "/2019_PF_GR6/static/media/garbage3.aaf689de.jpg",
+    "static/media/garbage4.jpeg": "/2019_PF_GR6/static/media/garbage4.f11c4045.jpeg",
+    "static/media/garbage5.jpeg": "/2019_PF_GR6/static/media/garbage5.a2fbd295.jpeg",
+    "static/media/garbage6.jpg": "/2019_PF_GR6/static/media/garbage6.bb13d91b.jpg",
+    "static/media/garbage_collector.jpg": "/2019_PF_GR6/static/media/garbage_collector.99f1eb39.jpg",
+    "static/media/logo.svg": "/2019_PF_GR6/static/media/logo.25bf045c.svg",
+    "static/media/notifications.css": "/2019_PF_GR6/static/media/notification.c0d3c94c.eot",
+    "static/media/page-under-construction.png": "/2019_PF_GR6/static/media/page-under-construction.b6fdedc2.png",
+    "static/media/service_recruiter.jpg": "/2019_PF_GR6/static/media/service_recruiter.dda3cafc.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e7d4785e.js",
+    "static/css/2.c72531a6.chunk.css",
+    "static/js/2.63c13f61.chunk.js",
+    "static/css/main.371bacde.chunk.css",
+    "static/js/main.77687ac8.chunk.js"
+  ]
+}
