@@ -7,6 +7,22 @@ It's about creating an OTOBOS application to link the two principal actors for a
 
 ![](readme_media/bpmn.png)
 
+
+**Analyze and gathering data :**
+It's about analyzing places and gathering data from the different places, zones and cities to prioritize zones in terme of the need of the service.
+
+**Targeting cities :**
+After gathering data, we can now target a specific and well determined city according to a pre-fixed set or measures.
+
+**Preparing the platform :**
+It's the moment then to prepare our platform with the different tools such as Apis and our workflow services. This process embeds many others going through choosing the adequate dev components and the workflow packs.
+
+**Ensuring the inter-connection :**
+In this step we ensure the inter-connection between the different agents in the system.
+
+**Evaluate and keep track of the service :**
+It's ensured by the Administrator agent, liking to ensure that the work is well done and the payment process is successfully finished and there's no intern conflict between the *Service Recruiter* and the *Service Provider*.
+
 ---
 
 ### Technical Architecture :
@@ -18,6 +34,14 @@ It's about creating an OTOBOS application to link the two principal actors for a
 ### Classes Diagram : 
 
 ![](readme_media/classes_diagram.png)
+
+---
+
+### Post States diagram : 
+
+Each post describing a specific asked service has an enumeration of different states shown as below :
+
+![](readme_media/post_states_diag.png)
 
 ---
 
