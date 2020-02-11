@@ -20,6 +20,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import {createNotification} from "./components/PopUpMessage"
 import ChatBot from "./components/ChatBot"
+import Maintainer from './components/Maintainer';
 const axios = require("axios");
 
 
@@ -160,10 +161,12 @@ export default function App() {
   // rendering :
   if(logged || localStorage.getItem("loggedUser")!=null){
     if(JSON.parse(localStorage.getItem("loggedUser")).usertype=="recruiter")
-    return <ServiceRecruiter />;
+      return <ServiceRecruiter />;
     else if(JSON.parse(localStorage.getItem("loggedUser")).usertype=="provider"){
       console.log("type : "+JSON.parse(localStorage.getItem("loggedUser")).usertype)
       return <Collector />
+    }else if(JSON.parse(localStorage.getItem("loggedUser")).usertype=="maintainer"){
+      return <Maintainer />
     }
   }else if(tosignUp){
     return <SignUp />;

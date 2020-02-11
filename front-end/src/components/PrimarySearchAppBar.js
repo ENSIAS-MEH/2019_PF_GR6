@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,6 +9,10 @@ import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
+//
+import FeedbackIcon from '@material-ui/icons/Feedback';
+import WarningIcon from '@material-ui/icons/Warning';
+//
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
@@ -16,7 +20,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import {MessageContext} from "./Collector"
 import CreateIcon from '@material-ui/icons/Create';
-
+import "./navbar_style.css"
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1,
@@ -81,6 +85,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function PrimarySearchAppBar(props) {
   const classes = useStyles();
+  //
+  const [notifs,setNotifs]=useState(props.notifs || 3);
+  const [mssg,setMssg]=useState(props.mssg || 20);
+  //
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -98,9 +106,13 @@ export default function PrimarySearchAppBar(props) {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
+  };
+  const signOut =()=>{
+    setAnchorEl(null);
+    handleMobileMenuClose();
     localStorage.removeItem("loggedUser");
     window.location.reload(true);
-  };
+  }
   const handleMenuProfile=()=>{
     setAnchorEl(null);
 
@@ -122,7 +134,7 @@ export default function PrimarySearchAppBar(props) {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuProfile}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>SignOut</MenuItem>
+      <MenuItem onClick={signOut}>SignOut</MenuItem>
     </Menu>
   );
 
@@ -138,18 +150,19 @@ export default function PrimarySearchAppBar(props) {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-      
         <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
+          <Badge badgeContent={mssg} color="secondary">
+            {!props.maintainer && <MailIcon /> }
+            {props.maintainer && <FeedbackIcon /> }
           </Badge>
         </IconButton>
         <p>Messages</p>
       </MenuItem>
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
+          <Badge badgeContent={notifs} color="secondary">
+            {!props.maintainer && <NotificationsIcon /> }
+            {props.maintainer && <WarningIcon /> }
           </Badge>
         </IconButton>
         <p>Notifications</p>
@@ -169,6 +182,7 @@ export default function PrimarySearchAppBar(props) {
   );
   const getMessages=(messages)=>{
     console.log("number of messages : "+messages.length);
+    console.log(messages)
     return messages.length
   }
   return (
@@ -177,14 +191,6 @@ export default function PrimarySearchAppBar(props) {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             Clean Env, Easy Cash
           </Typography>
@@ -192,6 +198,11 @@ export default function PrimarySearchAppBar(props) {
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
+            <form onSubmit={(e)=>{
+              e.preventDefault();
+              console.log(e)
+              console.log(e.value)
+              }}>
             <InputBase
               placeholder="Search…"
               classes={{
@@ -200,6 +211,7 @@ export default function PrimarySearchAppBar(props) {
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
+            </form>
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
@@ -208,14 +220,16 @@ export default function PrimarySearchAppBar(props) {
             <CreateIcon />
           </Badge>
         </IconButton>}
-            <IconButton aria-label="show 4 new mails" color="inherit" onClick={props.goChat}>
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
+            <IconButton aria-label="show some new mails" color="inherit" onClick={props.goChat}>
+              <Badge badgeContent={mssg} color="secondary">
+                {!props.maintainer && <MailIcon />}
+                {props.maintainer && <FeedbackIcon />}
               </Badge>
             </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={getMessages(messages)} color="secondary">
-                <NotificationsIcon />
+            <IconButton aria-label="show some new notifications" color="inherit">
+              <Badge badgeContent={notifs} color="secondary">
+                {!props.maintainer && <NotificationsIcon /> }
+                {props.maintainer && <WarningIcon /> }
               </Badge>
             </IconButton>
             <IconButton

@@ -1,15 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+//import App from './App';
 //import Collector from "./components/Collector";
 //import Chat from "./components/Chat";
 //import SignUp from "./modules/SignUp"
 //import PostDetails from "./components/PostDetails"
 //import ServiceRecruiter from "./components/ServiceRecruiter"
+//import NavBar from "./components/PrimarySearchAppBar"
+import Maintainer from "./components/Maintainer"
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Maintainer />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
